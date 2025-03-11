@@ -63,6 +63,7 @@ fi
 #====================================#
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     export HOMEBREW_NO_ENV_HINTS=1
+    export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
     alias lc='limactl'
     source <(limactl completion zsh)
 fi
@@ -74,7 +75,13 @@ fi
 eval "$(starship init zsh)"
 
 # bun completions
-[ -s "/Users/tyler/.bun/_bun" ] && source "/Users/tyler/.bun/_bun"
+[ -s "/Users/$USER/.bun/_bun" ] && source "/Users/$USER/.bun/_bun"
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$HOME/.local/bin:$PATH:$BUN_INSTALL/bin:$PATH"
+
+
+#====================================#
+#             Work/Local             #
+#====================================#
+source ~/.zsh_local
