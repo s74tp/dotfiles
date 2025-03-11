@@ -1,0 +1,79 @@
+#====================================#
+#               ZSH                  #
+#====================================#
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_SPACE
+
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit
+
+
+#====================================#
+#              Aliases               #
+#====================================#
+alias ls='eza'
+alias ll='eza -l'
+alias lh='eza -lah'
+alias mv='mv -i'
+alias cat='cat'
+alias tree='tree -aC'
+
+#====================================#
+#              Functions             #
+#====================================#
+function term-export() { 
+	if [[ $# -eq 0 ]] ; then
+		echo "Error: Hostname required ('term-export 192.168.10.148')"
+    	else
+	    infocmp -x | ssh $1 -- tic -x -;
+	fi
+} 
+
+#====================================#
+#               FZF                  #
+#====================================#
+if [[ `fzf --version | awk -F '.' '{print $2}'` > 48 ]]; then
+    source <(fzf --zsh)
+else
+    source /usr/share/doc/fzf/examples/completion.zsh
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+ 
+
+#====================================#
+#              Linux                 #
+#====================================#
+if [[ "${OSTYPE}" == "linux"* ]]; then
+    true 
+fi
+
+
+#====================================#
+#               MacOS                #
+#====================================#
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    export HOMEBREW_NO_ENV_HINTS=1
+    alias lc='limactl'
+    source <(limactl completion zsh)
+fi
+
+
+#====================================#
+#              Generic               #
+#====================================#
+eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/Users/tyler/.bun/_bun" ] && source "/Users/tyler/.bun/_bun"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$HOME/.local/bin:$PATH:$BUN_INSTALL/bin:$PATH"

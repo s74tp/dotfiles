@@ -1,0 +1,53 @@
+# Rebind C-b to C-s
+unbind C-b
+set-option -g prefix C-Space
+bind-key C-Space send-prefix
+
+# don't do anything when a 'bell' rings
+set -g visual-activity off
+set -g visual-bell off
+set -g visual-silence off
+setw -g monitor-activity off
+set -g bell-action none
+set -g default-terminal  "screen-256color"
+#set -g renumber-windows on
+set -g mouse on
+set -g escape-time 0
+set-option -ga terminal-overrides ",screen-256color:Tc"
+
+# Start windows indexing at 1
+# set -g base-index 1
+# setw -g pane-base-index 1
+
+# Select pane and windows
+# bind -r C-[ previous-window
+# bind -r C-] next-window
+# bind -r [ select-pane -t :.-
+# bind -r ] select-pane -t :.+
+bind -r Tab last-window   # cycle thru MRU tabs
+bind -r C-o swap-pane -D
+
+# Split panes
+#bind | split-window -h -c "#{pane_current_path}"
+bind = split-window -v -c "#{pane_current_path}"
+
+# set -g @plugin 'tmux-plugins/tpm'
+
+# Main Status bar colors
+BG_COLOR="color234"
+FG_COLOR="color76"
+set -g status-fg $FG_COLOR
+set -g status-bg $BG_COLOR
+
+# Active Window selection colors
+set-window-option -g window-status-current-format "#[fg=$BG_COLOR,bg=$FG_COLOR] #I:#[fg=$BG_COLOR,bg=$FG_COLOR]#W #[fg=$BG_COLOR,bg=$FG_COLOR]"
+
+# Inactive window selection colors
+set-window-option -g window-status-separator ""
+set-window-option -g window-status-format "#[fg=$FG_COLOR,bg=$BG_COLOR] #I:#W "
+set-option -g status-left "#{?client_prefix,#[bg=color88]#[fg=color250]#[bold] #S #[fg=$FG_COLOR],#[bg=$BG_COLOR] #S }"
+
+set-option -g status-right "#[fg=$FG_COLOR,bg=$BG_COLOR] #H"
+set-option -g status-justify centre
+
+# run -b '~/.tmux/plugins/tpm/tpm'
