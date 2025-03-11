@@ -10,9 +10,9 @@ echo ""
 ###          Dependencies         ###
 #####################################
 if [[ "${OSTYPE}" == "linux"* ]]; then
-    echo "Handling Linux Dependencies" 
+    echo "Handling Linux Dependencies"
 elif [[ "${OSTYPE}" == "darwin"* ]]; then
-    echo "Handling MacOS Dependencies" 
+    echo "Handling MacOS Dependencies"
 fi
 
 #####################################
@@ -61,11 +61,15 @@ backupFile \
 ln -s $HOME/.dotfiles/dotfiles/dot_tmux $HOME/.tmux.conf
 
 
-echo ""; echo "Linking zed"
+echo ""; echo "Linking zed files"
 backupFile \
-    $HOME/.config/zed \
-    $HOME/.config/zed.bak
-ln -s $HOME/.dotfiles/dotconfigs/zed $HOME/.config/zed
+    $HOME/.config/zed/settings.json \
+    $HOME/.config/zed/settings.json.bak
+ln -s $HOME/.dotfiles/dotconfigs/zed/settings.json $HOME/.config/zed/settings.json
+backupFile \
+    $HOME/.config/zed/keymap.json \
+    $HOME/.config/zed/keymap.json.bak
+ln -s $HOME/.dotfiles/dotconfigs/zed/keymap.json $HOME/.config/zed/keymap.json
 
 echo ""; echo "Linking neovim"
 backupFile \
