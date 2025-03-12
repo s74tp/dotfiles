@@ -21,7 +21,7 @@ fi
 
 # Determine if file is symlink or reg file and backup appropriately
 function backupFile() {
-    if [[ -L $1 ]]; then
+    if [[ -d $1 ]]; then
         cp -rf $1 $2 && rm -rf $1 && \
         echo "Backup: $2"
     elif [[ -f $1 ]]; then
