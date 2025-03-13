@@ -1,6 +1,6 @@
 window-width = 134
 window-height = 38
-theme = flexoki-dark
+theme = Ayu Mirage
 keybind = ctrl+[=text:\x1b
 font-size = 12
 unfocused-split-opacity = 0.5

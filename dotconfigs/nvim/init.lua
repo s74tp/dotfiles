@@ -928,18 +928,6 @@ require('lazy').setup({
       }
     end,
   },
-  {
-    'scottmckendry/cyberdream.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('cyberdream').setup {
-        transparent = true,
-        italic_comments = true,
-      }
-      vim.cmd.colorscheme 'cyberdream'
-    end,
-  },
   --
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
