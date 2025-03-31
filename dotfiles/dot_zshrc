@@ -84,4 +84,4 @@ export PATH="$HOME/.local/bin:$PATH:$BUN_INSTALL/bin:$PATH"
 #====================================#
 #             Work/Local             #
 #====================================#
-source ~/.zsh_local
+source ~/.env
