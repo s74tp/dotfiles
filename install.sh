@@ -7,6 +7,19 @@ echo "=========================================="
 echo ""
 
 #####################################
+###          Functions            ###
+#####################################
+
+# Determine if file is symlink or reg file and backup appropriately
+function backupFile() {
+    # if its a symlinked, remove it
+    if [[ -L $1 ]]; then
+        rm -rf $1
+    fi
+    mv $1 $2 &>/dev/null && echo "[!] Backup: $2"
+}
+
+#####################################
 ###          Dependencies         ###
 #####################################
 if [[ "${OSTYPE}" == "linux"* ]]; then
@@ -31,19 +44,18 @@ elif [[ "${OSTYPE}" == "darwin"* ]]; then
         echo "[+] Installing bun"
         curl -fsSL https://bun.sh/install | bash
     fi
-fi
-#####################################
-###          Functions            ###
-#####################################
 
-# Determine if file is symlink or reg file and backup appropriately
-function backupFile() {
-    # if its a symlinked, remove it
-    if [[ -L $1 ]]; then
-        rm -rf $1
-    fi
-    mv $1 $2 &>/dev/null && echo "[!] Backup: $2"
-}
+    echo [*] "Linking zed files"
+    backupFile \
+        $HOME/.config/zed/settings.json \
+        $HOME/.config/zed/settings.json.bak
+    ln -s $HOME/.dotfiles/dotconfigs/zed/settings.json $HOME/.config/zed/settings.json
+    backupFile \
+        $HOME/.config/zed/keymap.json \
+        $HOME/.config/zed/keymap.json.bak
+    ln -s $HOME/.dotfiles/dotconfigs/zed/keymap.json $HOME/.config/zed/keymap.json
+
+fi
 
 #####################################
 ###          Symlinks             ###
@@ -72,16 +84,6 @@ backupFile \
     $HOME/.tmux.conf \
     $HOME/.tmux.conf.bak
 ln -s $HOME/.dotfiles/dotfiles/dot_tmux $HOME/.tmux.conf
-
-echo [*] "Linking zed files"
-backupFile \
-    $HOME/.config/zed/settings.json \
-    $HOME/.config/zed/settings.json.bak
-ln -s $HOME/.dotfiles/dotconfigs/zed/settings.json $HOME/.config/zed/settings.json
-backupFile \
-    $HOME/.config/zed/keymap.json \
-    $HOME/.config/zed/keymap.json.bak
-ln -s $HOME/.dotfiles/dotconfigs/zed/keymap.json $HOME/.config/zed/keymap.json
 
 echo [*] "Linking neovim"
 backupFile \

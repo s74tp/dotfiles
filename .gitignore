@@ -1,2 +1,3 @@
-dotconfig/zed/conversations/*
-dotconfig/zed/prompts/*
+dotconfigs/zed/conversations/
+dotconfigs/zed/prompts/
+*.bak
